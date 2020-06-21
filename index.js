@@ -1,6 +1,7 @@
 global.__basedir = __dirname;
 const dbConnector = require('./config/db');
 const mongoose = require('mongoose');
+const apiRouter = require('./router');
 
 dbConnector()
     .then(() => {
@@ -8,7 +9,7 @@ dbConnector()
 
         const app = require('express')();
         require('./config/express')(app);
-        require('./router/routes')(app);
+        app.use('/api', apiRouter);
         
         app.use(function (err, req, res, next) {
             res.render('500.hbs', { errorMessage: 'Something went wrong' });

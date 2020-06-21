@@ -1,10 +1,20 @@
+const router = require('express').Router();
+const users = require('./users');
+const cities = require('./cities');
+
+router.use('/users', users);
+router.use('/cities', cities);
+
+module.exports = router;
+
+
 // const { auth } = require('../utils');
 // const { authController } = require('../controllers');
 
-module.exports = (app) => {
-    app.get('/', (req,res)=>{
-        res.send('Hello Rest Api')
-    });
+// module.exports = (app) => {
+//     app.get('/', (req,res)=>{
+//         res.send('Hello Rest Api')
+//     });
     // app.get('/', auth(false), cubeController.home);
     // app.get('/home', auth(false), cubeController.home);
 
@@ -26,4 +36,4 @@ module.exports = (app) => {
     // app.get('*', (req, res) => {
     //     res.render(`404.hbs`);
     // });
-};
+// };
