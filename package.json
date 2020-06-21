@@ -1,0 +1,31 @@
+{
+  "name": "rest-api",
+  "version": "1.0.0",
+  "description": "REST-api for connecting with React project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BoogyHS/REST-api.git"
+  },
+  "keywords": [
+    "rest-api"
+  ],
+  "author": "BoogyHS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BoogyHS/REST-api/issues"
+  },
+  "homepage": "https://github.com/BoogyHS/REST-api#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "mongoose": "^5.9.19"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
