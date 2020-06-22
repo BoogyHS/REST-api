@@ -9,12 +9,13 @@ dbConnector()
 
         const app = require('express')();
         require('./config/express')(app);
+
         app.use('/api', apiRouter);
         
-        app.use(function (err, req, res, next) {
-            res.render('500.hbs', { errorMessage: 'Something went wrong' });
-            console.log(err.message);
-        });
+        // app.use(function (err, req, res, next) {
+        //     res.render('500.hbs', { errorMessage: 'Something went wrong' });
+        //     console.log(err.message);
+        // });
 
         app.listen(config.port, console.log(`Listening on port ${config.port}!`));
     })
