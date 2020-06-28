@@ -2,6 +2,7 @@ global.__basedir = __dirname;
 const dbConnector = require('./config/db');
 const mongoose = require('mongoose');
 const apiRouter = require('./router');
+const cors = require('cors');
 
 dbConnector()
     .then(() => {
@@ -9,6 +10,8 @@ dbConnector()
 
         const app = require('express')();
         require('./config/express')(app);
+
+        app.use(cors());
 
         app.use('/api', apiRouter);
         

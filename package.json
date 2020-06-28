@@ -1,9 +1,10 @@
 {
   "name": "rest-api",
   "version": "1.0.0",
-  "description": "REST-api for connecting with React project",
+  "description": "REST-api for back-end of React project",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,7 +21,9 @@
   },
   "homepage": "https://github.com/BoogyHS/REST-api#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-handlebars": "^4.0.4",
     "jsonwebtoken": "^8.5.1",
