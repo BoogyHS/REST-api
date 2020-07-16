@@ -1,10 +1,10 @@
 # My first REST-api
 
-This REST-api is created for using together with React project.
+This REST-api is created for being used together with React project.
 
 ## **Mongoose** and **Mongo**
 
-It is implemented database, for storing information about visitors of the site.
+Database is implemented, for storing information about visitors to the site.
 
 ## **Jsonwebtoken**
 
