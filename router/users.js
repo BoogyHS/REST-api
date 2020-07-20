@@ -10,7 +10,12 @@ const { authController } = require('../controllers')
 // })
 
 // router.post('/login', authController.postLogin)
-router.get('/register', authController.getRegister)
-router.post('/register', authController.postRegister)
+
+router.post('/register', authController.register);
+router.post('/login', authController.login);
+router.post('/logout', authController.logout);
+
+router.get('/user/:username', authController.getUserInfo);
+router.put('/edit/:username', authController.editUserInfo);
 
 module.exports = router

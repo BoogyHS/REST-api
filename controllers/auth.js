@@ -6,42 +6,27 @@ const {
 const utils = require('../utils');
 const { authCookieName } = require('../app-config');
 
-// function login(req, res) {
-//     res.render('login');
-// }
-
-// function postLogin(req, res, next) {
-//     const { username, password } = req.body;
-//     userModel.findOne({ username })
-//         .then(user => {
-//             return Promise.all([user, user ? user.matchPassword(password) : false]);
-//         })
-//         .then(([user, match]) => {
-//             if (!match) {
-//                 res.render('login', { message: 'Wrong username or password' });
-//                 return
-//             }
-//             const token = utils.jwt.createToken({ id: user._id });
-//             res.isLogged = true;
-//             res.cookie(authCookieName, token)
-//             res.redirect('/');
-//         })
-//         .catch(next);
-
-// }
-
-function getRegister(req, res) {
-    userModel.find()
-    .select('-password -__v')
-        .then(users => {
-            const token = utils.jwt.createToken({ id: 1 });
-            res.cookie(authCookieName, token, { httpOnly: true })
-            res.send(users)
+function login(req, res, next) {
+    const { username, password } = req.body;
+    userModel.findOne({ username })
+        .then(user => {
+            return Promise.all([user, user ? user.matchPassword(password) : false]);
         })
-        .catch(console.log)
+        .then(([user, match]) => {
+            if (!match) {
+                res.send({ message: 'Wrong username or password' });
+                return
+            }
+
+            const token = utils.jwt.createToken({ id: user._id });
+            res.cookie(authCookieName, token)
+                .status(200)
+                .send(user);
+        })
+        .catch(next);
 }
 
-function postRegister(req, res, next) {
+function register(req, res, next) {
     const { name, email, username, password, repeatPassword } = req.body;
     // console.log(req)
     // if (password !== repeatPassword) {
@@ -57,12 +42,12 @@ function postRegister(req, res, next) {
     //     }
     return userModel.create({ name, email, username, password })
         .then((createdUser) => {
-            const {password, ...createdUserData}= createdUser;
+            const { password, ...createdUserData } = createdUser;
 
             const token = utils.jwt.createToken({ id: createdUserData.id });
             res.cookie(authCookieName, token, { httpOnly: true })
                 .status(200)
-                .send({ createdUserData });;
+                .send({ createdUserData });
             // console.log(res._event, 'from rest-api' )
             // res.something = 'something';
             // res.send('/login');
@@ -80,18 +65,49 @@ function logout(req, res) {
     const token = req.cookies[authCookieName];
     tokenBlacklistModel.create({ token })
         .then(() => {
-            res.clearCookie(authCookieName)
-                .redirect('/');
-        });
+            res.clearCookie(authCookieName);
+            res.status(401);
+        })
+        .catch(err => res.send(err));
+}
+
+// function getUserbyId(req, res) {
+//     const { _id } = req.body;
+//     userModel.findById(_id)
+//         .select('-password -__v')
+//         .then(user => {
+//             // const token = utils.jwt.createToken({ id: 1 });
+//             // res.cookie(authCookieName, token, { httpOnly: true })
+//             res.send(user)
+//         })
+//         .catch(err => { res.send(err) });
+// }
+
+function getUserInfo(req, res) {
+    const { username } = req.params;
+
+    userModel.findOne({ username })
+        .select('-password __v')
+        .then(user => {
+            res.send(user)
+        })
+        .catch(err=>res.send(err));
+
+}
+
+function editUserInfo(req, res) {
+    // const { username } = req.params;
+    // const token = req.cookies[authCookieName];
+    console.log('TODO edituserinfo')
 }
 
 module.exports = {
-    // login,
-    // register,
-    // postLogin,
-    getRegister,
-    postRegister,
-    logout
+    login,
+    register,
+    logout,
+    // getUserbyId,
+    getUserInfo,
+    editUserInfo,
 }
 
 // fetch('http://localhost:3000/api/users/register', {
