@@ -19,7 +19,7 @@ function login(req, res, next) {
             }
 
             const token = utils.jwt.createToken({ id: user._id });
-            res.cookie(authCookieName, token)
+            res.cookie(authCookieName, token, { httpOnly: true })
                 .status(200)
                 .send(user);
         })
