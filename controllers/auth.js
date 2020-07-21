@@ -45,7 +45,7 @@ function register(req, res, next) {
             const { password, ...createdUserData } = createdUser;
 
             const token = utils.jwt.createToken({ id: createdUserData.id });
-            res.cookie(authCookieName, token, { httpOnly: true })
+            res.cookie(authCookieName, token, { httpOnly: true, domain: 'http://localhost:3000/register' })
                 .status(200)
                 .send({ createdUserData });
             // console.log(res._event, 'from rest-api' )
