@@ -7,7 +7,7 @@ const config = {
     },
     production: {
         port: process.env.PORT || 3000,
-        dbURL: "mongodb+srv://cluster0.airlw.mongodb.net/rest-api"
+        dbURL: "mongodb+srv://boogy:131311@cluster0.airlw.mongodb.net/rest-api?retryWrites=true&w=majority"
     }
 };
 
