@@ -102,7 +102,7 @@ function editUserInfo(req, res) {
 }
 
 function test(reg, res) {
-    const token = utils.jwt.createToken({ id: createdUserData.id });
+    const token = utils.jwt.createToken({ id: 123 });
     res.cookie(authCookieName, token, { httpOnly: true })
     res.send('something')
 }
