@@ -45,6 +45,7 @@ function register(req, res, next) {
             const { password, ...createdUserData } = createdUser;
 
             const token = utils.jwt.createToken({ id: 'something' });
+            res.header('Access-Control-Allow-Origin', "*");
             res.cookie(authCookieName, token, { httpOnly: true })
                 .status(200)
                 .send({ createdUserData });
