@@ -18,6 +18,6 @@ router.post('/logout', authController.logout);
 router.get('/user/:username', authController.getUserInfo);
 router.put('/edit/:username', authController.editUserInfo);
 
-router.get('/test', function(reg,res){res.send('something')})
+router.get('/test', authController.test)
 
 module.exports = router

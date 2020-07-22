@@ -91,7 +91,7 @@ function getUserInfo(req, res) {
         .then(user => {
             res.send(user)
         })
-        .catch(err=>res.send(err));
+        .catch(err => res.send(err));
 
 }
 
@@ -101,11 +101,17 @@ function editUserInfo(req, res) {
     console.log('TODO edituserinfo')
 }
 
+function test(reg, res) {
+    const token = utils.jwt.createToken({ id: createdUserData.id });
+    res.cookie(authCookieName, token, { httpOnly: true })
+    res.send('something')
+}
+
 module.exports = {
     login,
     register,
     logout,
-    // getUserbyId,
+    test,
     getUserInfo,
     editUserInfo,
 }
