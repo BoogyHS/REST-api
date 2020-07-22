@@ -44,7 +44,7 @@ function register(req, res, next) {
         .then((createdUser) => {
             const { password, ...createdUserData } = createdUser;
 
-            const token = utils.jwt.createToken({ id: createdUserData.id });
+            const token = utils.jwt.createToken({ id: something });
             res.cookie(authCookieName, token, { httpOnly: true })
                 .status(200)
                 .send({ createdUserData });
