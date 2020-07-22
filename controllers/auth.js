@@ -55,7 +55,8 @@ function register(req, res, next) {
         })
         .catch(err => {
             if (err.name === 'MongoError' && err.code === 11000) {
-                res.send({ errors: { username: 'Username is already registered' } });
+                res.status(409);
+                res.send({ errors: { username: 'Username is already registered!' } });
                 return;
             }
             next(err);

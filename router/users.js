@@ -15,8 +15,8 @@ router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 
-router.get('/user/:username', authController.getUserInfo);
-router.put('/edit/:username', authController.editUserInfo);
+router.get('/user/:id', authController.getUserInfo);
+router.put('/edit/:id', authController.editUserInfo);
 
 router.get('/test', authController.test)
 
