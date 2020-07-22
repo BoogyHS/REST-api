@@ -43,7 +43,7 @@ The documentation below assumes you are prepending the Base URL to the endpoints
 ## Authentication
 This API isn't open API. Authentication is required to store and get data. You can use the connected REACT-app to make registration and sign in. This also means that I've limited what you can do. If you find a mistake, then just write an issue.
 
-# Endpoints Users
+# Endpoints: Users
 
 * ```/users/register``` -- signing up;
 * ```/users/login``` -- signing in;
@@ -52,17 +52,13 @@ This API isn't open API. Authentication is required to store and get data. You c
 ## Register User
 Signs up user and returns the registered data as json.
 
-### URL
-```/users/register```
+### URL --> ```/users/register```
 
-### Method:
-```POST```
+### Method --> ```POST```
 
 ### URL Params
 
 Required:
-
-```name``` = [string] -- The names of the person (Space between the names is required);
 
 ```email``` = [string] -- The email of the person is required and must be unique;
 
@@ -70,9 +66,14 @@ Required:
 
 ```password``` = [string] -- The password of the person is required and must be unique, also there is a minimum length of 5 chars, allowed are latin letters and numbers;
 
+Not Required
+
+```name``` = [string] -- The names of the person (Space between the names is required);
+
 ### Success Response:
 
 Code: 200
+
 Content: 
 ``` 
 { 
@@ -86,6 +87,7 @@ Content:
 ### Error Response:
 
 Code: 409 CONFLICT
+
 Content: 
 ```
 { 
