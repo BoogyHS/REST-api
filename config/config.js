@@ -9,7 +9,7 @@ const config = {
     production: {
         port: process.env.PORT || 3000,
         dbURL: "mongodb+srv://boogy:131311@cluster0.airlw.mongodb.net/rest-api?retryWrites=true&w=majority",
-        origin: 'https://arcane-retreat-44164.herokuapp.com'
+        origin: 'http://localhost:3000'
     }
 };
 
