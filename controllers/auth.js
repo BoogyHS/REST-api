@@ -6,53 +6,24 @@ const {
 const utils = require('../utils');
 const { authCookieName } = require('../app-config');
 
-function login(req, res, next) {
-    const { username, password } = req.body;
-    userModel.findOne({ username })
-        .then(user => {
-            return Promise.all([user, user ? user.matchPassword(password) : false]);
-        })
-        .then(([user, match]) => {
-            if (!match) {
-                res.send({ message: 'Wrong username or password' });
-                return
-            }
-
-            const token = utils.jwt.createToken({ id: user._id });
-            res.cookie(authCookieName, token, { httpOnly: true })
-                .status(200)
-                .send(user);
-        })
-        .catch(next);
+const bsonToJson = (data) => { return JSON.parse(JSON.stringify(data)) };
+const removePassword = (data) => {
+    const { password, __v, ...userData } = data;
+    return userData
 }
 
 function register(req, res, next) {
     const { name, email, username, password, repeatPassword } = req.body;
-    // console.log(req)
-    // if (password !== repeatPassword) {
-    //     res.render('register', { errors: { password: 'Password do not match' } });
-    //     return;
-    // }
-    // userModel.findOne({ username })
-    //     .then(user => {
-    //         if (user) {
-    //             res.render('register.hbs', { errors: { username: 'Username is already registered' } });
-    //             return;
-    //         }
-    //     }
-    //тествам нещо
+
     return userModel.create({ name, email, username, password })
         .then((createdUser) => {
-            const { password, ...createdUserData } = createdUser;
+            createdUser = bsonToJson(createdUser);
+            createdUser = removePassword(createdUser);
 
-            const token = utils.jwt.createToken({ id: 'something' });
-            // res.header('Access-Control-Allow-Origin', "*");
+            const token = utils.jwt.createToken({ id: createdUser._id });
             res.cookie(authCookieName, token, { httpOnly: true })
                 .status(200)
-                .send({ createdUserData });
-            // console.log(res._event, 'from rest-api' )
-            // res.something = 'something';
-            // res.send('/login');
+                .send(createdUser);
         })
         .catch(err => {
             if (err.name === 'MongoError' && err.code === 11000) {
@@ -64,12 +35,38 @@ function register(req, res, next) {
         });
 }
 
+function login(req, res, next) {
+    const { username, password } = req.body;
+    userModel.findOne({ username })
+        .then(user => {
+            return Promise.all([user, user ? user.matchPassword(password) : false]);
+        })
+        .then(([user, match]) => {
+            if (!match) {
+                res.status(401)
+                    .send({ message: 'Wrong username or password' });
+                return
+            }
+            user = bsonToJson(user);
+            user = removePassword(user);
+
+            const token = utils.jwt.createToken({ id: user._id });
+
+            res.cookie(authCookieName, token, { httpOnly: true })
+                .send(user);
+        })
+        .catch(next);
+}
+
 function logout(req, res) {
+
     const token = req.cookies[authCookieName];
+
     tokenBlacklistModel.create({ token })
         .then(() => {
             res.clearCookie(authCookieName);
             res.status(401);
+            res.send({ message: 'Logged out!' });
         })
         .catch(err => res.send(err));
 }
