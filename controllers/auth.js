@@ -49,7 +49,7 @@ function register(req, res, next) {
             // res.header('Access-Control-Allow-Origin', "*");
             res.cookie(authCookieName, token, { httpOnly: true })
                 .status(200)
-                .send({ createdUserData });
+                .send({ createdUserData, somekey:'somevalue' });
             // console.log(res._event, 'from rest-api' )
             // res.something = 'something';
             // res.send('/login');
