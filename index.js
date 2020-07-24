@@ -11,7 +11,10 @@ dbConnector()
         const app = require('express')();
         require('./config/express')(app);
 
-        app.use(cors());
+        app.use(cors({
+            origin: 'http://localhost:3000',
+            credentials: true
+          }));
 
         app.use('/api', apiRouter);
         
