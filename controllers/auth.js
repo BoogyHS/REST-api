@@ -40,6 +40,7 @@ function register(req, res, next) {
     //             return;
     //         }
     //     }
+    //тествам нещо
     return userModel.create({ name, email, username, password })
         .then((createdUser) => {
             const { password, ...createdUserData } = createdUser;
