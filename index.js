@@ -3,6 +3,7 @@ const dbConnector = require('./config/db');
 const mongoose = require('mongoose');
 const apiRouter = require('./router');
 const cors = require('cors');
+const config = require('./config/config')
 
 dbConnector()
     .then(() => {
@@ -12,7 +13,7 @@ dbConnector()
         require('./config/express')(app);
 
         app.use(cors({
-            origin: 'http://localhost:3000',
+            origin: config.origin,
             credentials: true
           }));
 
