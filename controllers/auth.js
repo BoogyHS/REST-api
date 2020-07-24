@@ -28,31 +28,16 @@ function login(req, res, next) {
 
 function register(req, res, next) {
     const { name, email, username, password, repeatPassword } = req.body;
-    // console.log(req)
-    // if (password !== repeatPassword) {
-    //     res.render('register', { errors: { password: 'Password do not match' } });
-    //     return;
-    // }
-    // userModel.findOne({ username })
-    //     .then(user => {
-    //         if (user) {
-    //             res.render('register.hbs', { errors: { username: 'Username is already registered' } });
-    //             return;
-    //         }
-    //     }
-    //тествам нещо
+   
     return userModel.create({ name, email, username, password })
         .then((createdUser) => {
-            const { password, ...createdUserData } = createdUser;
-
-            const token = utils.jwt.createToken({ id: 'something' });
-            // res.header('Access-Control-Allow-Origin', "*");
+            createdUser = JSON.parse(JSON.stringify(createdUser));
+            const { password, __v, ...userData } = createdUser;
+            
+            const token = utils.jwt.createToken({ id: userData._id });
             res.cookie(authCookieName, token, { httpOnly: true })
                 .status(200)
-                .send({ createdUserData, somekey:'somevalue' });
-            // console.log(res._event, 'from rest-api' )
-            // res.something = 'something';
-            // res.send('/login');
+                .send(userData);
         })
         .catch(err => {
             if (err.name === 'MongoError' && err.code === 11000) {
