@@ -8,10 +8,9 @@ const config = {
     },
     production: {
         port: process.env.PORT || 3000,
-        dbURL: "mongodb+srv://boogy:131311@cluster0.airlw.mongodb.net/rest-api?retryWrites=true&w=majority",
+        dbURL: process.env.DB_URL_CREDENTIALS,
         origin: 'http://localhost:3000'
     }
 };
-
 
 module.exports = config[env]
