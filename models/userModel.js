@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 7;
 
+const { ObjectId } = mongoose.Schema.Types;
+
 const userSchema = new mongoose.Schema({
     name:{
         type: String,
@@ -34,6 +36,10 @@ const userSchema = new mongoose.Schema({
             message: props => `${props.value} must contains only latin letters and digits!`
         },
     },
+    posts: [{ 
+        type: ObjectId, 
+        ref: "Trip" 
+    }]
 });
 
 userSchema.methods = {
