@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
-const secret = 'supermen234'
+const secret = process.env.secret
 
 function createToken(data) {
+    console.log(secret)
     return jwt.sign(data, secret, { expiresIn: '60m' });
 }
 
