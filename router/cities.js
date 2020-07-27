@@ -8,4 +8,5 @@ router.get('/city', function (req, res) {
   res.send('city page')
 })
 
+// console.log('test')
 module.exports = router

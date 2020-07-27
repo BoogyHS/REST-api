@@ -2,10 +2,12 @@ const router = require('express').Router();
 const test = require('./test');
 const users = require('./users');
 const cities = require('./cities');
+const trips = require('./trips');
 
 router.use('/test', test);
 router.use('/users', users);
 router.use('/cities', cities);
+router.use('/trips', trips);
 
 module.exports = router;
 

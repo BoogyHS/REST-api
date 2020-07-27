@@ -3,7 +3,7 @@ const env = process.env.NODE_ENV || 'development';
 const config = {
     development: {
         port: process.env.PORT || 3300,
-        dbURL: process.env.DB_URL_CREDENTIALS,
+        dbURL: 'mongodb://localhost:27017/rest-api',
         origin: 'http://localhost:3000'
     },
     production: {
@@ -12,5 +12,6 @@ const config = {
         origin: 'http://localhost:3000'
     }
 };
+
 
 module.exports = config[env]
