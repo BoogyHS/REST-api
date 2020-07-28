@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { tripController } = require('../controllers')
+const { tripController } = require('../controllers');
+const { auth } = require('../utils');
 
 // middleware that is specific to this router
 
@@ -9,6 +10,6 @@ const { tripController } = require('../controllers')
 //   res.send('login page')
 // })
 
-router.post('/new-trip', tripController.createTrip);
+router.post('/new-trip', auth(), tripController.createTrip);
 
 module.exports = router
