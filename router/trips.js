@@ -11,5 +11,6 @@ const { auth } = require('../utils');
 // })
 
 router.post('/new-trip', auth(), tripController.createTrip);
+router.get('/my-trips', auth(), tripController.getTrips);
 
 module.exports = router

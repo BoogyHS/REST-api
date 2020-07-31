@@ -3,9 +3,11 @@ const { tripModel, userModel } = require('../models');
 function isValidTrip(startDate, endDate) { return startDate < endDate }
 
 function checkAvailability(newTrip, trips) {
+
     for (const trip of trips) {
-        if (newTrip.startDate > trip.startDate && newTrip.startDate < trip.endDate
-            || newTrip.endDate > trip.startDate) {
+
+        if ((newTrip.startDate >= trip.startDate && newTrip.startDate < trip.endDate)
+            || (newTrip.endDate > trip.startDate && newTrip.endDate <= trip.endDate)) {
             return false;
         }
     }
@@ -32,25 +34,40 @@ function createTrip(req, res, next) {
                     const available = checkAvailability(newTrip, trips);
 
                     if (available) {
-                        // console.log(trips)
                         tripModel.create(newTrip)
                             .then(trip => {
                                 tripId = JSON.parse(JSON.stringify(trip))._id;
                                 user.trips.push(tripId);
                                 user.save();
 
-                                res.send(trip);
-                            })
+                                return res.send(trip);
+                            });
+                    } else {
+                        return res.send({ message: "You already have trip on these dates" });
                     }
-                    return res.send({ message: "You already have trip on these dates" })
+                } else {
+                    return res.send({ message: "User not found" });
                 }
-                return res.send({ message: "User not found" })
             })
-            .catch(err => { res.send(err) })
+            .catch(err => { res.send(err) });
+    } else {
+        res.send({ message: "Invalid trip dates" });
     }
-    return res.send({ message: "Invalid trip dates" })
+}
+
+function getTrips(req, res, next) {
+    const { userId } = req.query;
+
+    userModel.findById(userId)
+        .populate('trips')
+        .then(user => {
+            const trips = JSON.parse(JSON.stringify(user)).trips;
+            res.send(trips);
+        })
+        .catch(err => res.send(err))
 }
 
 module.exports = {
-    createTrip
+    createTrip,
+    getTrips
 }
