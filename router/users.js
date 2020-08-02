@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { authController } = require('../controllers')
+const { authController } = require('../controllers');
+const { auth } = require('../utils');
 
 // middleware that is specific to this router
 
@@ -15,6 +16,7 @@ router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 
+router.get('/confirm-user', auth(false), authController.confirmUser);
 router.get('/user/:id', authController.getUserInfo);
 router.put('/edit/:id', authController.editUserInfo);
 

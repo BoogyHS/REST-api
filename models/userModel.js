@@ -5,13 +5,13 @@ const saltRounds = Number(process.env.SALTROUNDS);
 const { ObjectId } = mongoose.Schema.Types;
 
 const userSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
     },
-    email:{
+    email: {
         type: String,
-        required:true,
-        unique:true,
+        required: true,
+        unique: true,
     },
     username: {
         type: String,
@@ -36,11 +36,11 @@ const userSchema = new mongoose.Schema({
             message: props => `${props.value} must contains only latin letters and digits!`
         },
     },
-    trips: [{ 
-        type: ObjectId, 
-        ref: "Trip" 
+    trips: [{
+        type: ObjectId,
+        ref: "Trip"
     }]
-});
+}, { timestamps: { createdAt: 'created_at' } });
 
 userSchema.methods = {
     matchPassword: function (password) {

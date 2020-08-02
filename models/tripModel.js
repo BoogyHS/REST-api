@@ -18,6 +18,6 @@ const tripSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "User"
     }
-});
+}, { timestamps: { createdAt: 'created_at' } });
 
 module.exports = mongoose.model('Trip', tripSchema);

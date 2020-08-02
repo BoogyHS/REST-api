@@ -71,6 +71,15 @@ function logout(req, res) {
         .catch(err => res.send(err));
 }
 
+function confirmUser(req, res, next) {
+    if(req.user){
+        res.send(req.user);
+    }else{
+        res.status(401)
+        .send({ errors: { error: 'Unauthorized!' } });
+    }
+}
+
 // function getUserbyId(req, res) {
 //     const { _id } = req.body;
 //     userModel.findById(_id)
@@ -111,6 +120,7 @@ module.exports = {
     login,
     register,
     logout,
+    confirmUser,
     test,
     getUserInfo,
     editUserInfo,
