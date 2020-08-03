@@ -14,6 +14,9 @@ const tripSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    price: {
+        type: Number,
+    },
     userId: {
         type: ObjectId,
         ref: "User"

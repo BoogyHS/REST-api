@@ -20,7 +20,8 @@ function createTrip(req, res, next) {
         name: req.body.name,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
-        userId: req.body.userId
+        userId: req.body.userId,
+        price: 0
     }
 
     if (isValidTrip(newTrip.startDate, newTrip.endDate)) {
