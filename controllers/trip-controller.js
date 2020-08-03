@@ -59,7 +59,8 @@ function getTrips(req, res, next) {
     const { userId } = req.query;
 
     userModel.findById(userId)
-        .populate('trips')
+        // .populate('trips')
+        .populate({path: 'trips', options: { sort: { 'startDate': 1 } } })
         .then(user => {
             const trips = JSON.parse(JSON.stringify(user)).trips;
             res.send(trips);

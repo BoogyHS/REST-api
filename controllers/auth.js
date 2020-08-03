@@ -27,8 +27,12 @@ function register(req, res, next) {
         })
         .catch(err => {
             if (err.name === 'MongoError' && err.code === 11000) {
+                let field = err.message.split("index: ")[1];
+                field = field.split(" dup key")[0];
+                field = field.substring(0, field.lastIndexOf("_"));
+
                 res.status(409);
-                res.send({ errors: { username: 'Username is already registered!' } });
+                res.send({ message: `This ${field} is already registered!` });
                 return;
             }
             next(err);
@@ -72,11 +76,11 @@ function logout(req, res) {
 }
 
 function confirmUser(req, res, next) {
-    if(req.user){
+    if (req.user) {
         res.send(req.user);
-    }else{
+    } else {
         res.status(401)
-        .send({ errors: { error: 'Unauthorized!' } });
+            .send({ message: 'Unauthorized!' });
     }
 }
 
