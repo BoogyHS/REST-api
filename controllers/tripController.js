@@ -61,7 +61,20 @@ function getTrips(req, res, next) {
 
     userModel.findById(userId)
         // .populate('trips')
-        .populate({path: 'trips', options: { sort: { 'startDate': 1 } } })
+        .populate({ path: 'trips', options: { sort: { 'startDate': 1 } } })
+        .then(user => {
+            const trips = JSON.parse(JSON.stringify(user)).trips;
+            res.send(trips);
+        })
+        .catch(err => res.send(err))
+}
+
+function getReservations(req, res, next) {
+    const { userId, tripId } = req.query;
+    console.log(tripId)
+    userModel.findById(userId)
+        // .populate('trips')
+        .populate({ path: 'trips', options: { sort: { 'startDate': 1 } } })
         .then(user => {
             const trips = JSON.parse(JSON.stringify(user)).trips;
             res.send(trips);
@@ -71,5 +84,6 @@ function getTrips(req, res, next) {
 
 module.exports = {
     createTrip,
-    getTrips
+    getTrips,
+    getReservations
 }

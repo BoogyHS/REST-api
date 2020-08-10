@@ -2,7 +2,15 @@ const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema.Types;
 
 const tripSchema = new mongoose.Schema({
-    name: {
+    country: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    hotelName: {
         type: String,
         required: true
     },
@@ -15,20 +23,19 @@ const tripSchema = new mongoose.Schema({
         required: true
     },
     price: {
-        type: Number,
+        type: Number
+    },
+    notes: {
+        type: String
     },
     userId: {
         type: ObjectId,
         ref: "User"
     },
-    hotelId: {
+    tripId:{
         type: ObjectId,
-        ref: "Hotel"
-    },
-    flightId: {
-        type: ObjectId,
-        ref: "Flight"
-    },
+        ref: "Trip"
+    }
 }, { timestamps: { createdAt: 'created_at' } });
 
-module.exports = mongoose.model('Trip', tripSchema);
+module.exports = mongoose.model('Hotel', hotelSchema);
