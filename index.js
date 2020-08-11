@@ -20,7 +20,7 @@ dbConnector()
 
           const sessionConfig = {
             cookie : {
-              sameSite: 'strict', // THIS is the config you are looing for.
+              sameSite: 'none', // THIS is the config you are looing for.
             }
           };
           
