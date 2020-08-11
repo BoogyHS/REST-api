@@ -21,7 +21,7 @@ function register(req, res, next) {
             createdUser = removePassword(createdUser);
 
             const token = utils.jwt.createToken({ id: createdUser._id });
-            res.cookie(authCookieName, token, { httpOnly: true, sameSite='none' })
+            res.cookie(authCookieName, token, { httpOnly: true, sameSite:'none' })
                 .status(200)
                 .send(createdUser);
         })
