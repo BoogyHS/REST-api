@@ -18,6 +18,18 @@ dbConnector()
             credentials: true
           }));
 
+          const sessionConfig = {
+            cookie : {
+              sameSite: 'strict', // THIS is the config you are looing for.
+            }
+          };
+          
+          if (process.env.NODE_ENV === 'production') {
+            sessionConfig.cookie.secure = true; // serve secure cookies
+          }
+          
+          app.use(session(sessionConfig));
+
         app.use('/api', apiRouter);
         
         // app.use(function (err, req, res, next) {
