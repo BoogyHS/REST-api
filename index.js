@@ -28,7 +28,6 @@ dbConnector()
             sessionConfig.cookie.secure = true; // serve secure cookies
           }
           
-          app.use(session(sessionConfig));
 
         app.use('/api', apiRouter);
         
