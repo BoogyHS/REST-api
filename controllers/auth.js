@@ -21,7 +21,7 @@ function register(req, res, next) {
             createdUser = removePassword(createdUser);
 
             const token = utils.jwt.createToken({ id: createdUser._id });
-            res.cookie(authCookieName, token, { httpOnly: true, sameSite:'none' })
+            res.cookie(authCookieName, token, { httpOnly: true, sameSite:'none', secure: true })
                 .status(200)
                 .send(createdUser);
         })
@@ -56,7 +56,7 @@ function login(req, res, next) {
 
             const token = utils.jwt.createToken({ id: user._id });
 
-            res.cookie(authCookieName, token, { httpOnly: true, sameSite:'none' })
+            res.cookie(authCookieName, token, { httpOnly: true, sameSite:'none', secure: true })
                 .send(user);
         })
         .catch(next);
@@ -90,7 +90,7 @@ function confirmUser(req, res, next) {
 //         .select('-password -__v')
 //         .then(user => {
 //             // const token = utils.jwt.createToken({ id: 1 });
-//             // res.cookie(authCookieName, token, { httpOnly: true, sameSite:'none' })
+//             // res.cookie(authCookieName, token, { httpOnly: true, sameSite:'none', secure: true })
 //             res.send(user)
 //         })
 //         .catch(err => { res.send(err) });
@@ -116,7 +116,7 @@ function editUserInfo(req, res) {
 
 function test(reg, res) {
     const token = utils.jwt.createToken({ id: 123 });
-    res.cookie(authCookieName, token, { httpOnly: true, sameSite:'none' })
+    res.cookie(authCookieName, token, { httpOnly: true, sameSite:'none', secure: true })
     res.send('something')
 }
 
