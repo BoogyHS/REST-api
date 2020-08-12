@@ -21,14 +21,14 @@ const tripSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "User"
     },
-    hotelId: {
+    hotels: [{
         type: ObjectId,
         ref: "Hotel"
-    },
-    flightId: {
+    }],
+    flights: [{
         type: ObjectId,
         ref: "Flight"
-    },
+    }],
 }, { timestamps: { createdAt: 'created_at' } });
 
 module.exports = mongoose.model('Trip', tripSchema);

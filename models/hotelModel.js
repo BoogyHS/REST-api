@@ -10,15 +10,15 @@ const hotelSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    hotelName: {
+    "hotel-name": {
         type: String,
         required: true
     },
-    startDate: {
+    "check-in": {
         type: String,
         required: true
     },
-    endDate: {
+    "check-out": {
         type: String,
         required: true
     },
@@ -32,7 +32,7 @@ const hotelSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "User"
     },
-    tripId:{
+    tripId: {
         type: ObjectId,
         ref: "Trip"
     }
