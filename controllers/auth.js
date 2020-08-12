@@ -21,8 +21,13 @@ function register(req, res, next) {
             createdUser = removePassword(createdUser);
 
             const token = utils.jwt.createToken({ id: createdUser._id });
-            res.cookie(authCookieName, token, { httpOnly: true, sameSite:'none', secure: true })
-                .status(200)
+            if (process.env.NODE_ENV === 'production') {
+                res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })
+            } else {
+                res.cookie(authCookieName, token, { httpOnly: true })
+
+            }
+            res.status(200)
                 .send(createdUser);
         })
         .catch(err => {
@@ -56,7 +61,13 @@ function login(req, res, next) {
 
             const token = utils.jwt.createToken({ id: user._id });
 
-            res.cookie(authCookieName, token, { httpOnly: true, sameSite:'none', secure: true })
+            if (process.env.NODE_ENV === 'production') {
+                res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })
+            } else {
+                res.cookie(authCookieName, token, { httpOnly: true })
+
+            }
+            res.status(200)
                 .send(user);
         })
         .catch(next);
@@ -116,7 +127,13 @@ function editUserInfo(req, res) {
 
 function test(reg, res) {
     const token = utils.jwt.createToken({ id: 123 });
-    res.cookie(authCookieName, token, { httpOnly: true, sameSite:'none', secure: true })
+    if (process.env.NODE_ENV === 'production') {
+        res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })
+    } else {
+        res.cookie(authCookieName, token, { httpOnly: true })
+
+    }
+    res.status(200)
     res.send('something')
 }
 

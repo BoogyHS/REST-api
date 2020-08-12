@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema.Types;
 
-const tripSchema = new mongoose.Schema({
+const flightSchema = new mongoose.Schema({
     startPoint: {
         type: String,
         required: true

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema.Types;
 
-const tripSchema = new mongoose.Schema({
+const hotelSchema = new mongoose.Schema({
     country: {
         type: String,
         required: true
