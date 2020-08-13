@@ -1,9 +1,20 @@
-const { tripModel, userModel } = require('../models');
+const { tripModel, flightModel } = require('../models');
 
-function bookFlight(req, res, next) {
-    console.log(req);
+function addFlight(req, res, next) {
+    const flightData = req.body;
+    
+    flightModel.create(flightData)
+        .then(flight => {
+            flight = flight.toJSON();
+            tripModel.findOneAndUpdate({ _id: flight.tripId.toJSON() }, { $push: { flights: flight._id.toJSON() } })
+                .populate('hotels flights')
+                .then(trip => {
+                    res.send(trip);
+                })
+                .catch(err => console.log(err));
+        })
 }
 
 module.exports = {
-    bookFlight,
+    addFlight,
 }

@@ -2,22 +2,26 @@ const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema.Types;
 
 const flightSchema = new mongoose.Schema({
-    startPoint: {
+    departure: {
         type: String,
         required: true
     },
-    endPoint: {
+    destination: {
         type: String,
         required: true
     },
-    date: {
+    "date-time": {
         type: String,
         required: true
     },
-    time: {
-        type: String,
-        required: true
-    },
+    // date: {
+    //     type: String,
+    //     required: true
+    // },
+    // time: {
+    //     type: String,
+    //     required: true
+    // },
     price: {
         type: Number
     },

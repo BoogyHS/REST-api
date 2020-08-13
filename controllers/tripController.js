@@ -71,7 +71,7 @@ function getTrips(req, res, next) {
 
 function getReservations(req, res, next) {
     const { userId, tripId } = req.query;
-    console.log(tripId)
+    // console.log(tripId)
     userModel.findById(userId)
         // .populate('trips')
         .populate({ path: 'trips', options: { sort: { 'startDate': 1 } } })

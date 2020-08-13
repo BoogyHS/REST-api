@@ -16,6 +16,6 @@ router.post('/new-trip', auth(), tripController.createTrip);
 router.get('/my-trips', auth(), tripController.getTrips);
 router.get('/my-trips/:id/reservations', auth(), tripController.getReservations);
 router.post('/add-hotel', auth(), hotelController.addHotel);
-router.post('/add-flight', auth(), flightController.bookFlight);
+router.post('/add-flight', auth(), flightController.addFlight);
 
 module.exports = router

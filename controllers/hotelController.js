@@ -1,4 +1,4 @@
-const { tripModel, userModel, hotelModel } = require('../models');
+const { tripModel, hotelModel } = require('../models');
 
 function addHotel(req, res, next) {
     const hotelData = req.body;
