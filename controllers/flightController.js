@@ -1,8 +1,11 @@
 const { tripModel, flightModel } = require('../models');
 
 function addFlight(req, res, next) {
-    const flightData = req.body;
-    
+    const flightData = {
+        type: 'flight',
+        ...req.body
+    };
+
     flightModel.create(flightData)
         .then(flight => {
             flight = flight.toJSON();

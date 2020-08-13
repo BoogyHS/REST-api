@@ -28,6 +28,9 @@ const hotelSchema = new mongoose.Schema({
     notes: {
         type: String
     },
+    type: {
+        type: String
+    },
     userId: {
         type: ObjectId,
         ref: "User"

@@ -60,7 +60,6 @@ function getTrips(req, res, next) {
     const { userId } = req.query;
 
     userModel.findById(userId)
-        // .populate('trips')
         .populate({ path: 'trips', options: { sort: { 'startDate': 1 } } })
         .then(user => {
             const trips = JSON.parse(JSON.stringify(user)).trips;
@@ -71,13 +70,12 @@ function getTrips(req, res, next) {
 
 function getReservations(req, res, next) {
     const { userId, tripId } = req.query;
-    // console.log(tripId)
-    userModel.findById(userId)
-        // .populate('trips')
-        .populate({ path: 'trips', options: { sort: { 'startDate': 1 } } })
-        .then(user => {
-            const trips = JSON.parse(JSON.stringify(user)).trips;
-            res.send(trips);
+    
+    tripModel.findById(tripId)
+        .populate({ path: 'hotels flights', options: { sort: { 'startDate': 1 } } })
+        .then(trip => {
+            trip = JSON.parse(JSON.stringify(trip));
+            res.send(trip);
         })
         .catch(err => res.send(err))
 }
