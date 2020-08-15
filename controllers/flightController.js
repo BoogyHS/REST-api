@@ -9,7 +9,12 @@ function addFlight(req, res, next) {
     flightModel.create(flightData)
         .then(flight => {
             flight = flight.toJSON();
-            tripModel.findOneAndUpdate({ _id: flight.tripId.toJSON() }, { $push: { flights: flight._id.toJSON() } })
+            tripModel.findOneAndUpdate(
+                { _id: flight.tripId.toJSON() },
+                {
+                    $push: { flights: flight._id.toJSON() },
+                    $inc: { "price": flightData.price }
+                })
                 .populate('hotels flights')
                 .then(trip => {
                     res.send(trip);

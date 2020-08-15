@@ -10,7 +10,12 @@ function addHotel(req, res, next) {
     hotelModel.create(hotelData)
         .then(hotel => {
             hotel = hotel.toJSON();
-            tripModel.findOneAndUpdate({ _id: hotel.tripId.toJSON() }, { $push: { hotels: hotel._id.toJSON() } })
+            tripModel.findOneAndUpdate(
+                { _id: hotel.tripId.toJSON() },
+                {
+                    $push: { hotels: hotel._id.toJSON() },
+                    $inc: { "price": hotelData.price }
+                })
                 .populate('hotels flights')
                 .then(trip => {
                     res.send(trip);
