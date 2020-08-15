@@ -47,6 +47,7 @@ function register(req, res, next) {
 function login(req, res, next) {
     const { username, password } = req.body;
     userModel.findOne({ username })
+        .populate('trips')
         .then(user => {
             return Promise.all([user, user ? user.matchPassword(password) : false]);
         })
@@ -112,7 +113,9 @@ function getUserInfo(req, res) {
 
     userModel.findOne({ username })
         .select('-password __v')
+        .populate('trips')
         .then(user => {
+            console.log(user)
             res.send(user)
         })
         .catch(err => res.send(err));
