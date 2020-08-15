@@ -18,7 +18,7 @@ function auth(redirectUnauthenticated = true) {
                     return Promise.reject(new Error('blacklisted token'));
                 }
                 userModel.findById(data.id)
-                    .select('-password __v')
+                    
                     .populate('trips')
                     .then(user => {
                         req.user = user;
