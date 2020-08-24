@@ -9,7 +9,7 @@ const config = {
     production: {
         port: process.env.PORT || 3000,
         dbURL: process.env.DB_URL_CREDENTIALS,
-        origin: 'https://react-travel-organizer.herokuapp.com'
+        origin: ['https://react-travel-organizer.herokuapp.com', 'http://react-travel-organizer.s3-website.eu-central-1.amazonaws.com']
     }
 };
 
