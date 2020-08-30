@@ -6,8 +6,9 @@ function checkAvailability(newTrip, trips) {
 
     for (const trip of trips) {
 
-        if ((newTrip.startDate >= trip.startDate && newTrip.startDate < trip.endDate)
-            || (newTrip.endDate > trip.startDate && newTrip.endDate <= trip.endDate)) {
+        if ((newTrip.startDate >= trip.startDate && newTrip.startDate <= trip.endDate)
+            || (newTrip.endDate > trip.startDate && newTrip.endDate <= trip.endDate)
+            || (trip.startDate > newTrip.startDate && trip.endDate < newTrip.endDate)) {
             return false;
         }
     }
@@ -44,15 +45,21 @@ function createTrip(req, res, next) {
                                 return res.send(trip);
                             });
                     } else {
-                        return res.send({ message: "You already have trip on these dates" });
+                        return res
+                            .status(400)
+                            .send({ message: "You already have trip on these dates" });
                     }
                 } else {
-                    return res.send({ message: "User not found" });
+                    return res
+                        .status(400)
+                        .send({ message: "User not found" });
                 }
             })
             .catch(err => { res.send(err) });
     } else {
-        res.send({ message: "Invalid trip dates" });
+        return res
+            .status(400)
+            .send({ message: "Invalid trip dates" });
     }
 }
 
@@ -70,7 +77,7 @@ function getTrips(req, res, next) {
 
 function getReservations(req, res, next) {
     const { userId, tripId } = req.query;
-    
+
     tripModel.findById(tripId)
         .populate({ path: 'hotels flights', options: { sort: { 'startDate': 1 } } })
         .then(trip => {
