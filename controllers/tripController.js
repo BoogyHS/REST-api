@@ -7,9 +7,9 @@ function checkAvailability(newTrip, trips) {
     for (const trip of trips) {
 
         if ((newTrip.startDate >= trip.startDate && newTrip.startDate <= trip.endDate)
-            || (newTrip.endDate > trip.startDate && newTrip.endDate <= trip.endDate)
-            || (trip.startDate > newTrip.startDate && trip.endDate < newTrip.endDate)) {
-            return false;
+            || (newTrip.endDate >= trip.startDate && newTrip.endDate <= trip.endDate)
+            || (newTrip.startDate <= trip.startDate && newTrip.endDate >= trip.endDate)) {
+            return false
         }
     }
     return true;

@@ -36,8 +36,8 @@ function register(req, res, next) {
                 field = field.split(" dup key")[0];
                 field = field.substring(0, field.lastIndexOf("_"));
 
-                res.status(409);
-                res.send({ message: `This ${field} is already registered!` });
+                res.status(409)
+                    .send({ message: `This ${field} is already registered!` });
                 return;
             }
             next(err);
@@ -80,9 +80,9 @@ function logout(req, res) {
 
     tokenBlacklistModel.create({ token })
         .then(() => {
-            res.clearCookie(authCookieName);
-            res.status(401);
-            res.send({ message: 'Logged out!' });
+            res.clearCookie(authCookieName)
+                .status(401)
+                .send({ message: 'Logged out!' });
         })
         .catch(err => res.send(err));
 }
